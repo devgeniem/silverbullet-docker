@@ -1,0 +1,30 @@
+version: '3'
+services:
+  web:
+      image: silverbullet
+      ports:
+        - "80:1337"
+      depends_on:
+        - redis
+        - db
+
+      environment:
+        NODE_ENV: development
+        HOSTNAME: sb.test
+        VIRTUAL_HOST: sb.test
+        VIRTUAL_PORT: 1337
+        HTTPS_HOST: sb.test
+
+  db:
+      image: mysql
+      volumes:
+        - ./stuff:/var/lib/mysql
+
+      environment:   
+        MYSQL_USER: silverbullet
+        MYSQL_PASSWORD: silverbullet
+        MYSQL_ROOT_PASSWORD: silverbullet
+        MYSQL_DATABASE: silverbullet
+
+  redis:
+      image: redis
